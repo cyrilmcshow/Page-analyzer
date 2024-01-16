@@ -26,9 +26,7 @@
     <div class="alert alert-success" role="alert">{{ message }}</div>
   {% endfor %}
 {% endif %}
-    
   
-
   <main class="flex-grow-1">
     <div class="container-lg mt-3">
       <h1>Сайт: {{ name }}</h1>
@@ -47,14 +45,14 @@
         </tr>
         <tr>
           <td>Дата создания</td>
-          <td>{{ created_at }}</td>
+          <td>{{ urls_created_at }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
     <h2 class="mt-5 mb-3">Проверки</h2>
-    <form method="post" action="/urls/1/checks">
+    <form method="post" action={{ url_for('run_checks', id=id) }}>
     <input type="submit" class="btn btn-primary" value="Запустить проверку">
     </form>
     
@@ -71,7 +69,18 @@
       </tr>
     </thead>
       <tbody>
-    
+      {% if rows %}
+          {% for row in rows %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+            </tr>
+          {% endfor %}
+      {% endif %}
     </tbody>
     </table>
   </div>
@@ -90,5 +99,4 @@
   
 </body>
 </html>
-
 
