@@ -24,8 +24,8 @@
   </header>
   
   {% if messages %}
-  {% for message in messages %}
-    <div class="alert alert-danger" role="alert">{{ message }}</div>
+  {% for cetegory, message in messages %}
+    <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
   {% endfor %}
 {% endif %}
 

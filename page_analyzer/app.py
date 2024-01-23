@@ -23,7 +23,8 @@ from page_analyzer.utils import (url_validate,
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['DATABASE_URL'] = os.getenv('DATABASE_URL')
 
 
@@ -41,18 +42,18 @@ def get_urls():
             if check_data_availability(normalized_site_name) is False:
                 insert_name_into_urls_table(normalized_site_name)
                 url_id = get_id_from_urls_table(normalized_site_name)
-                flash('Страница успешно добавлена')
+                flash('Страница успешно добавлена', category='success')
                 return redirect(url_for('get_definite_url', id=url_id))
             else:
                 url_id = get_id_from_urls_table(normalized_site_name)
-                flash('Страница уже существует')
+                flash('Страница уже существует', category='info')
                 return redirect(url_for('get_definite_url', id=url_id))
         else:
             if len(entered_url) > 255:
-                flash('URL превышает 255 символов')
+                flash('URL превышает 255 символов', category='danger')
             else:
-                flash('Неккоректный URL')
-            messages = get_flashed_messages()
+                flash('Неккоректный URL', category='danger')
+            messages = get_flashed_messages(with_categories=True)
 
             return render_template('index.html', messages=messages)
     else:
@@ -68,7 +69,7 @@ def get_definite_url(id):
         name_and_created_at = select_name_and_created_at_from_urls_table(id)
         urls_name = name_and_created_at.name
         urls_created_at = name_and_created_at.created_at
-        messages = get_flashed_messages()
+        messages = get_flashed_messages(with_categories=True)
         return render_template('definite_url.html',
                                messages=messages, id=id, name=urls_name,
                                urls_created_at=urls_created_at)
@@ -77,13 +78,12 @@ def get_definite_url(id):
         name_and_created_at = select_name_and_created_at_from_urls_table(id)
         urls_name = name_and_created_at.name
         urls_created_at = name_and_created_at.created_at
-        flash('Страница успешно проверена', 'verification')
-        messages_about_verification = get_flashed_messages(
-            with_categories=True, category_filter=['verification'])
+        messages = get_flashed_messages(with_categories=True)
 
         return render_template('definite_url.html',
-                               messages_about_verification=messages_about_verification, id=id, name=urls_name, # noqa
-                               urls_created_at=urls_created_at, data_from_urls_checks=data_urls_checks) # noqa
+                            id=id, name=urls_name, # noqa
+                            urls_created_at=urls_created_at, data_from_urls_checks=data_urls_checks, # noqa
+                            messages=messages) # noqa
 
 
 @app.post('/urls/<int:id>/checks')
@@ -91,4 +91,5 @@ def run_checks(id):
     site_name = select_name_and_created_at_from_urls_table(id).name
     page_data = parse_page(site_name)
     insert_page_data_into_url_checks_table(id, page_data)
+    flash('Страница успешно проверена', 'success')
     return redirect(url_for('get_definite_url', id=id))
