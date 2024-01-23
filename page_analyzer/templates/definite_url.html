@@ -75,15 +75,15 @@
       </tr>
     </thead>
       <tbody>
-      {% if rows %}
-          {% for row in rows %}
+      {% if data_from_urls_checks %}
+          {% for data_row in data_from_urls_checks %}
             <tr>
-                <td>{{ row[0] }}</td>
-                <td>{{ row[2] }}</td>
-                <td>{{ row[3] }}</td>
-                <td>{{ row[4] }}</td>
-                <td>{{ row[5] }}</td>
-                <td>{{ row[6] }}</td>
+                <td>{{ data_row.id }}</td>
+                <td>{{ data_row.status_code }}</td>
+                <td>{{ data_row.h1 }}</td>
+                <td>{{ data_row.title }}</td>
+                <td>{{ data_row.description }}</td>
+                <td>{{ data_row.created_at }}</td>
             </tr>
           {% endfor %}
       {% endif %}
