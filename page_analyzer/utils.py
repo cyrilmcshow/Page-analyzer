@@ -37,6 +37,8 @@ def parse_page(site_name):
     }
 
     response = get_response(site_name)
+    if response is None:
+        return None
     soup = BeautifulSoup(response.text, 'html.parser')
     status_code = response.status_code
     h1 = soup.h1

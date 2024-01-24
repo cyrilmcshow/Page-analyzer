@@ -22,10 +22,10 @@
 </nav>
 
   </header>
-  
-  {% if messages %}
+
+{% if messages %}
   {% for cetegory, message in messages %}
-    <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+    <div class="alert alert-{{ cetegory }}" role="alert">{{ message }}</div>
   {% endfor %}
 {% endif %}
 

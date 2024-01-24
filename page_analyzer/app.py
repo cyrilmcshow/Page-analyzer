@@ -55,7 +55,7 @@ def get_urls():
                 flash('Неккоректный URL', category='danger')
             messages = get_flashed_messages(with_categories=True)
 
-            return render_template('index.html', messages=messages)
+            return render_template('index.html', messages=messages), 422
     else:
         data_for_urls_page = select_data_for_urls_page()
         return render_template('urls.html',
@@ -90,6 +90,9 @@ def get_definite_url(id):
 def run_checks(id):
     site_name = select_name_and_created_at_from_urls_table(id).name
     page_data = parse_page(site_name)
+    if page_data is None:
+        flash('Произошла ошибка при проверке', category='danger')
+        return redirect(url_for('get_definite_url', id=id))
     insert_page_data_into_url_checks_table(id, page_data)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('get_definite_url', id=id))
