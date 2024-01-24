@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/cyrilmcshow/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/cyrilmcshow/python-project-83/actions)
 
-### [Check out in action]([https://page-analyzer-wf2q.onrender.com](https://page-analyzer-79z7.onrender.com))
+### [Check out in action](https://page-analyzer-79z7.onrender.com)
 
 ### About project:
 This app helps analyze SEO usability of website. It's able to find main headline, title and description.
