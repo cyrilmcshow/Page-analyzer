@@ -5,7 +5,7 @@ CREATE TABLE urls(
     created_at date
     );
 
-DROP TABLE IF EXISTS urls CASCADE;
+DROP TABLE IF EXISTS url_checks CASCADE;
 create table url_checks(
 	id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	url_id bigint references urls(id),
