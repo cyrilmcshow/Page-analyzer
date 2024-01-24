@@ -52,7 +52,7 @@ def get_urls():
             if len(entered_url) > 255:
                 flash('URL превышает 255 символов', category='danger')
             else:
-                flash('Неккоректный URL', category='danger')
+                flash('Некорректный URL', category='danger')
             messages = get_flashed_messages(with_categories=True)
 
             return render_template('index.html', messages=messages), 422
