@@ -24,9 +24,8 @@ SEO website usability refers to the ability of a website to be optimized for sea
 ```
 
 ## Secret Key
-
+1. Create a file for environment variables in the page_analyzer .env directory with the following information
 ```bash
-Create a file for environment variables in the page_analyzer .env directory with the following information
 DATABASE_URL=postgresql://{username}:{password}@{host}:{port}/{databasename}  
 SECRET_KEY='{your secret key}'
 ```
