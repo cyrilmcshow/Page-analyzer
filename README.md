@@ -23,6 +23,14 @@ SEO website usability refers to the ability of a website to be optimized for sea
    git clone git@github.com:Agrarox666/python-project-83.git
 ```
 
+## Secret Key
+
+```bash
+Create a file for environment variables in the page_analyzer .env directory with the following information
+DATABASE_URL=postgresql://{username}:{password}@{host}:{port}/{databasename}  
+SECRET_KEY='{your secret key}'
+```
+
 ## Quick start
 1. Install poetry and db (postgresql) on your PC and by command (from the main directory):
 ```sh
