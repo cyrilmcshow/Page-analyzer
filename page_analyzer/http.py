@@ -1,18 +1,10 @@
-from validators.url import url
-from validators import ValidationError
 from urllib.parse import urlparse
 import requests
+from requests import RequestException
 from bs4 import BeautifulSoup
 
 
-def url_validate(entered_url):
-    if isinstance(url(entered_url), ValidationError) is False:
-        return True
-    else:
-        return False
-
-
-def get_normalized_site_name(entered_url):
+def get_normalized_url(entered_url):
     parsed_name = urlparse(entered_url)
     normalized_site_name = f'{parsed_name.scheme}://{parsed_name.netloc}'
     return normalized_site_name
@@ -22,9 +14,10 @@ def get_response(site_name):
     try:
         response = requests.get(site_name)
         response.raise_for_status()
+    except RequestException as error:
+        pass
+    finally:
         return response
-    except Exception as error:
-        print(f'something wrong: {error}')
 
 
 def parse_page(site_name):
