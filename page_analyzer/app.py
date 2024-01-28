@@ -47,7 +47,7 @@ def post_urls():
     errors = url_validate(entered_url)
     if len(errors) == 0:
         normalized_site_name = get_normalized_url(entered_url)
-        data_from_urls = select_all_data_from_urls_by_name(normalized_site_name)
+        data_from_urls = select_all_data_from_urls_by_name(normalized_site_name)  # noqa
         if data_from_urls is None:
             insert_name_into_urls_table(normalized_site_name)
             url_id = select_id_from_urls_table(normalized_site_name)
@@ -81,10 +81,10 @@ def get_url(id):
 
 @app.post('/urls/<int:id>/checks')
 def run_checks(id):
-    name_and_created_at_from_urls = select_name_and_created_at_from_urls_table(id)
+    name_and_created_at_from_urls = select_name_and_created_at_from_urls_table(id)  # noqa
     if name_and_created_at_from_urls is None:
         return render_template('404.html'), 404
-    site_name = name_and_created_at_from_urls.name 
+    site_name = name_and_created_at_from_urls.name
     page_data = parse_page(site_name)
     if page_data is None:
         flash('Произошла ошибка при проверке', category='danger')

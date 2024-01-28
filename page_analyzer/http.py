@@ -14,7 +14,7 @@ def get_response(site_name):
     try:
         response = requests.get(site_name)
         response.raise_for_status()
-    except RequestException as error:
+    except RequestException:
         pass
     finally:
         return response

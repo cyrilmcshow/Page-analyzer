@@ -42,8 +42,11 @@ def insert_name_into_urls_table(curs, name):
 
 
 @open_db_connection
-def select_id_from_urls_table(curs,
-                              site_name):  # оставил эту функцию из соображений того что запрос только по одному столбцу будет работать быстрее ежели заново делать запрос по всем столбцам да и в когде app.py будет меньше строк кода
+def select_id_from_urls_table(curs, site_name):
+    """# оставил эту функцию из соображений того что запрос только по
+    # одному столбцу будет работать быстрее ежели заново делать запрос
+     по всем столбцам да и в когде app.py будет
+    # меньше строк кода"""
     curs.execute('SELECT id FROM urls WHERE name=%s', (site_name,))
     url_id = curs.fetchone()[0]
     return url_id
