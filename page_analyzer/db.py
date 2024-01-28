@@ -12,8 +12,8 @@ def connect_to_db():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         return conn
-    except Exception:
-        print('Не удалось подключиться к базе данных')
+    except psycopg2.OperationalError:
+        pass
 
 
 def open_db_connection(func):
@@ -88,4 +88,10 @@ def insert_page_data_into_url_checks_table(curs, id, page_data):
         'VALUES (%s, %s, %s, %s, %s, %s)',
         (id, current_date, page_data['status_code'], page_data['title'],
          page_data['h1'], page_data['description']))
+    curs.connection.commit()
+
+
+@open_db_connection
+def clear_db(curs):
+    curs.execute('TRUNCATE urls, url_checks CASCADE')
     curs.connection.commit()

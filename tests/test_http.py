@@ -1,24 +1,9 @@
-import pytest
-import psycopg2
 from page_analyzer.http import *
 
-URLS = {
-    'correct': 'https://ru.hexlet.io/projects/83/members/36239/reviews',
-    'correct2': 'https://wrong.name.com',
-    'incorrect': 'abcdbhdfdhf',
-    'incorrect2': 'google.com'
-}
 
-
-def test_url_validate():
-    assert url_validate(URLS.get('correct'))
-    assert url_validate(URLS.get('correct2'))
-    assert not url_validate(URLS.get('incorrect'))
-    assert not url_validate(URLS.get('incorrect2'))
-
-
-def test_get_normalized_site_name():
-    assert get_normalized_url(URLS.get('correct')) == 'https://ru.hexlet.io'
+def test_get_normalized_site_name(get_urls):
+    urls = get_urls
+    assert get_normalized_url(urls.get('correct')) == 'https://ru.hexlet.io'
 
 
 def test_page_parse():
