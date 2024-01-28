@@ -1,6 +1,7 @@
 from page_analyzer.app import app
-from page_analyzer.db import insert_name_into_urls_table, select_id_from_urls_table, select_all_data_from_urls_by_name
-from page_analyzer.http import get_normalized_url
+from page_analyzer.db import (insert_name_into_urls_table,
+                              select_id_from_urls_table,
+                              select_all_data_from_urls_by_name)
 import pytest
 from datetime import datetime
 
@@ -81,7 +82,7 @@ def test_add_check(truncate_db, get_urls, client):
     insert_name_into_urls_table(normalized_url)
     id_from_urls_table = select_id_from_urls_table(normalized_url)
 
-    response = client.post('/urls/' + str(id_from_urls_table) + '/checks', data={'url': normalized_url})
+    response = client.post('/urls/' + str(id_from_urls_table) + '/checks', data={'url': normalized_url}) # noqa
     assert response.status_code == 302
 
     redirected_response = client.get(response.location, follow_redirects=True)
