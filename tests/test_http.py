@@ -1,4 +1,4 @@
-from page_analyzer.http import get_normalized_url, parse_page
+from page_analyzer.http import get_normalized_url, parse_page, get_response
 
 
 def test_get_normalized_site_name(get_urls):
@@ -16,4 +16,6 @@ def test_page_parse():
                        'обучения с практикой и готовыми проектами в резюме. Помощь в трудоустройстве после успешного ' # noqa
                        'окончания обучения'
     }
-    assert parse_page('https://ru.hexlet.io') == expected_data
+    site_name = 'https://ru.hexlet.io'
+    response = get_response(site_name)
+    assert parse_page(response, site_name) == expected_data
