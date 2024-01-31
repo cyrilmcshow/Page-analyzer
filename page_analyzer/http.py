@@ -20,7 +20,7 @@ def get_response(site_name):
         return response
 
 
-def parse_page(site_name):
+def parse_page(response, site_name):
     page_data = {
         'site_name': site_name,
         'status_code': '',
@@ -29,9 +29,6 @@ def parse_page(site_name):
         'description': ''
     }
 
-    response = get_response(site_name)
-    if response is None:
-        return None
     soup = BeautifulSoup(response.text, 'html.parser')
     status_code = response.status_code
     h1 = soup.h1

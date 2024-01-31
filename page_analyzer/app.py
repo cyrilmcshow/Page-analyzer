@@ -17,7 +17,7 @@ from page_analyzer.db import (select_all_data_from_urls_by_name,
                               select_name_and_created_at_from_urls_table,  # noqa 
                               insert_page_data_into_url_checks_table)
 from page_analyzer.http import (get_normalized_url,
-                                parse_page)
+                                parse_page, get_response)
 
 from page_analyzer.validation import url_validate
 
@@ -57,7 +57,7 @@ def post_urls():
             url_id = data_from_urls.id
             flash('Страница уже существует', category='info')
             return redirect(url_for('get_url', id=url_id))
-    else:
+    elif len(errors) != 0:
         flash(errors.get('message'), category=errors.get('category'))
         messages = get_flashed_messages(with_categories=True)
 
@@ -85,10 +85,11 @@ def run_checks(id):
     if name_and_created_at_from_urls is None:
         return render_template('404.html'), 404
     site_name = name_and_created_at_from_urls.name
-    page_data = parse_page(site_name)
-    if page_data is None:
+    response = get_response(site_name)
+    if response is None:
         flash('Произошла ошибка при проверке', category='danger')
         return redirect(url_for('get_url', id=id))
+    page_data = parse_page(response, site_name)
     insert_page_data_into_url_checks_table(id, page_data)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('get_url', id=id))

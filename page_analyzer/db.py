@@ -9,11 +9,8 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 def connect_to_db():
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-        return conn
-    except psycopg2.OperationalError:
-        pass
+    conn = psycopg2.connect(DATABASE_URL)
+    return conn
 
 
 def open_db_connection(func):
