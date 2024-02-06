@@ -1,5 +1,6 @@
 from pytest import fixture
-from page_analyzer.db import clear_db
+from page_analyzer.db import prepare_db_for_tests
+import os
 
 
 @fixture
@@ -22,5 +23,6 @@ def get_urls():
 
 @fixture
 def truncate_db():
+    prepare_db_for_tests()
     yield
-    clear_db()
+    os.system('./restore_db.sh')

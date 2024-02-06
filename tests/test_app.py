@@ -57,6 +57,7 @@ def test_add_url_post_method(truncate_db, get_urls, client):
 
     flash = 'Страница успешно добавлена'
     text_from_redirected_response = redirected_response.text
+    print(text_from_redirected_response)
     assert flash in text_from_redirected_response
 
 

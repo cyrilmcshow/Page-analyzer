@@ -42,7 +42,7 @@ def insert_name_into_urls_table(curs, name):
 def select_id_from_urls_table(curs, site_name):
     """# оставил эту функцию из соображений того что запрос только по
     # одному столбцу будет работать быстрее ежели заново делать запрос
-     по всем столбцам да и в когде app.py будет
+     по всем столбцам да и в коде app.py будет
     # меньше строк кода"""
     curs.execute('SELECT id FROM urls WHERE name=%s', (site_name,))
     url_id = curs.fetchone()[0]
@@ -89,6 +89,6 @@ def insert_page_data_into_url_checks_table(curs, id, page_data):
 
 
 @open_db_connection
-def clear_db(curs):
+def prepare_db_for_tests(curs):
     curs.execute('TRUNCATE urls, url_checks CASCADE')
     curs.connection.commit()

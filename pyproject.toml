@@ -16,12 +16,11 @@ validators = "^0.22.0"
 beautifulsoup4 = "^4.12.2"
 requests = "^2.31.0"
 
-
-
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"
 pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
+pook = "^1.4.0"
 
 [build-system]
 requires = ["poetry-core"]
