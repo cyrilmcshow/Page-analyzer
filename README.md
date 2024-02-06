@@ -41,3 +41,13 @@ SECRET_KEY='{your secret key}'
    make start
 ```
 A simple page analyzer is running on your computer and ready to go!
+
+## If you want to test the application
+1. Replace the string in the dump_db.sh and restore_db.sh files:
+```sh
+   postgresql://{username}:{password}@{host}:{port}/{databasename}
+```
+2.  Run the tests by command:
+```sh
+   make test
+```
