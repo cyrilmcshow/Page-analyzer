@@ -30,14 +30,6 @@ def get_urls():
 
 
 @fixture
-def get_data_for_urls_table():
-    data = {
-            "id": 12345,
-            "name": "https://eftgroup.ru"}
-    return data
-
-
-@fixture
 def setup_and_restore_db():
     truncate_db()
     yield
