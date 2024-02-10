@@ -2,7 +2,6 @@ from pytest import fixture
 from page_analyzer.db import truncate_db
 import os
 from page_analyzer.app import app
-import json
 
 
 @fixture
