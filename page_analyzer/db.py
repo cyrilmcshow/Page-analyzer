@@ -25,8 +25,8 @@ def open_db_connection(func):
 
 
 @open_db_connection
-def select_all_data_from_urls_by_name(curs, normalized_site_name):
-    curs.execute('SELECT * FROM urls WHERE name=%s', (normalized_site_name,))  # noqa
+def get_urls_by_name(curs, site_name):
+    curs.execute('SELECT * FROM urls WHERE name=%s', (site_name,))  # noqa
     return curs.fetchone()
 
 
@@ -39,18 +39,14 @@ def insert_name_into_urls_table(curs, name):
 
 
 @open_db_connection
-def select_id_from_urls_table(curs, site_name):
-    """# оставил эту функцию из соображений того что запрос только по
-    # одному столбцу будет работать быстрее ежели заново делать запрос
-     по всем столбцам да и в коде app.py будет
-    # меньше строк кода"""
+def get_urls_id(curs, site_name):
     curs.execute('SELECT id FROM urls WHERE name=%s', (site_name,))
     url_id = curs.fetchone()[0]
     return url_id
 
 
 @open_db_connection
-def select_checks_data(curs):
+def get_checks_data(curs):
     curs.execute("SELECT DISTINCT ON (urls.id) urls.id, name, "
                  "url_checks.created_at AS created_at, "  # noqa
                  "url_checks.status_code AS status_code, "  # noqa
@@ -62,16 +58,14 @@ def select_checks_data(curs):
 
 
 @open_db_connection
-def data_from_urls_checks(curs, id):
-    id = id
+def get_checks_data_by_id(curs, id):
     curs.execute('SELECT * from url_checks where url_id=%s ORDER BY id DESC', (id,))  # noqa
     rows_from_urls_checks = curs.fetchall()
     return rows_from_urls_checks
 
 
 @open_db_connection
-def select_name_and_created_at_from_urls_table(curs, id):
-    id = id
+def get_name_and_created_at_by_id(curs, id):
     curs.execute('SELECT * FROM urls where id=%s ORDER BY id DESC', (id,))
     select_from_urls_table = curs.fetchone()
     return select_from_urls_table
@@ -89,6 +83,6 @@ def insert_page_data_into_url_checks_table(curs, id, page_data):
 
 
 @open_db_connection
-def prepare_db_for_tests(curs):
+def truncate_db(curs):
     curs.execute('TRUNCATE urls, url_checks CASCADE')
     curs.connection.commit()

@@ -1,6 +1,15 @@
 from pytest import fixture
-from page_analyzer.db import prepare_db_for_tests
+from page_analyzer.db import truncate_db
 import os
+from page_analyzer.app import app
+import json
+
+
+@fixture
+def client():
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
 
 
 @fixture
@@ -22,7 +31,15 @@ def get_urls():
 
 
 @fixture
-def truncate_db():
-    prepare_db_for_tests()
+def get_data_for_urls_table():
+    data = {
+            "id": 12345,
+            "name": "https://eftgroup.ru"}
+    return data
+
+
+@fixture
+def setup_and_restore_db():
+    truncate_db()
     yield
     os.system('./restore_db.sh')
