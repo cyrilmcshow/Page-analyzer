@@ -10,12 +10,12 @@ import os
 from dotenv import load_dotenv
 
 from page_analyzer.db import (get_urls_by_name,
-                              insert_name_into_urls_table,
+                              insert_name_urls,
                               get_urls_id,
                               get_checks_data,
                               get_checks_data_by_id,
                               get_name_and_created_at_by_id,  # noqa 
-                              insert_page_data_into_url_checks_table)
+                              insert_page_data_checks)
 from page_analyzer.http import (get_normalized_url,
                                 parse_page, get_response)
 
@@ -54,7 +54,7 @@ def post_urls():
     normalized_site_name = get_normalized_url(entered_url)
     data_from_urls = get_urls_by_name(normalized_site_name)  # noqa
     if data_from_urls is None:
-        insert_name_into_urls_table(normalized_site_name)
+        insert_name_urls(normalized_site_name)
         url_id = get_urls_id(normalized_site_name)
         flash('Страница успешно добавлена', category='success')
         return redirect(url_for('get_url', id=url_id))
@@ -90,6 +90,6 @@ def run_checks(id):
         flash('Произошла ошибка при проверке', category='danger')
         return redirect(url_for('get_url', id=id))
     page_data = parse_page(response, site_name)
-    insert_page_data_into_url_checks_table(id, page_data)
+    insert_page_data_checks(id, page_data)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('get_url', id=id))

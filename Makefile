@@ -17,7 +17,6 @@ lint:
 	
 
 test:
-	./dump_db.sh
 	poetry run pytest
 
 

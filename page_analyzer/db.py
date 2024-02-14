@@ -31,7 +31,7 @@ def get_urls_by_name(curs, site_name):
 
 
 @open_db_connection
-def insert_name_into_urls_table(curs, name):
+def insert_name_urls(curs, name):
     current_date = datetime.now().date()
     curs.execute('INSERT INTO urls (name, created_at) VALUES (%s, %s)',  # noqa
                  (name, current_date))
@@ -72,7 +72,7 @@ def get_name_and_created_at_by_id(curs, id):
 
 
 @open_db_connection
-def insert_page_data_into_url_checks_table(curs, id, page_data):
+def insert_page_data_checks(curs, id, page_data):
     current_date = datetime.now().date()
     curs.execute(
         'INSERT INTO url_checks(url_id, created_at, status_code, title, h1, description) '  # noqa

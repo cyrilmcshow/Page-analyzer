@@ -30,7 +30,6 @@ def get_urls():
 
 
 @fixture
-def setup_and_restore_db():
+def prepare_db():
     truncate_db()
     yield
-    os.system('./restore_db.sh')
