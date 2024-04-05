@@ -1,5 +1,3 @@
-### Hexlet tests, linter status and Code climate:
-[![Actions Status](https://github.com/cyrilmcshow/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/cyrilmcshow/python-project-83/actions)
 [![Python CI](https://github.com/cyrilmcshow/python-project-83/actions/workflows/linter.yml/badge.svg)](https://github.com/cyrilmcshow/python-project-83/actions/workflows/linter.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7b4dc61e32009f10cf8d/maintainability)](https://codeclimate.com/github/cyrilmcshow/python-project-83/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7b4dc61e32009f10cf8d/test_coverage)](https://codeclimate.com/github/cyrilmcshow/python-project-83/test_coverage)
